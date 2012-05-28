@@ -1,0 +1,31 @@
+{
+    "name": "mongoose-sugar",
+    "description": "Sugary bits for Mongoose",
+    "author": "Juho Vepsalainen <bebraw@gmail.com>",
+    "version": "0.1.0",
+
+    "dependencies": {
+        "mongoose": "== 2.6.4",
+        "funkit": "== 0.1.8"
+    },
+
+    "main": "./lib/mongoose-sugar.js",
+
+    "repository": {
+        "type": "git",
+        "url": "https://bebraw@github.com/bebraw/mongoose-sugar"
+    },
+
+    "homepage": "https://github.com/bebraw/mongoose-sugar",
+
+    "bugs": {
+        "url": "https://github.com/bebraw/mongoose-sugar/issues"
+    },
+
+    "keywords": ["mongoose", "utilities"],
+
+    "licenses": [{
+        "type": "MIT",
+        "url": "https://github.com/bebraw/mongoose-sugar/blob/master/LICENSE"
+    }]
+}
