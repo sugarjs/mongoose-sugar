@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var mongoose = require('mongoose');
-var sugar = require('./mongoose-sugar');
+var sugar = require('../lib/mongoose-sugar');
 var models = require('./models');
 
 log('Make sure mongod is running!');

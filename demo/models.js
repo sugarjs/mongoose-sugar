@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var sugar = require('./mongoose-sugar');
+var sugar = require('../lib/mongoose-sugar');
 
 var schema = sugar.schema(mongoose);
 var refs = sugar.refs;
