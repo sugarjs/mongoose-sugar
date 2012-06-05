@@ -8,10 +8,12 @@ log('Make sure mongod is running!');
 // TODO: expand this (figure out how to test properly)
 mongoose.connect('mongodb://localhost/mongoose-sugar');
 
-sugar.getAll(models.License, {}, function(d) {
+sugar.getAll(models.License, {}, function(err, d) {
+    if(err) return log(err);
     log(d);
 
-    sugar.create(models.License, {name: 'mit'}, function(d) {
+    sugar.create(models.License, {name: 'mit'}, function(err, d) {
+        if(err) return log(err);
         log(d);
         process.exit();
     });
