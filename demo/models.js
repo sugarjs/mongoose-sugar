@@ -3,9 +3,10 @@ var sugar = require('../lib/mongoose-sugar');
 
 var schema = sugar.schema(mongoose);
 var refs = sugar.refs;
+var unique = sugar.unique;
 
 exports.License = schema('License', {
-    name: String
+    name: {type: String, unique: true}
 });
 
 exports.Library = schema('Library', {
