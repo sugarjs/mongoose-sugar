@@ -5,7 +5,7 @@
     "version": "0.2.1",
 
     "dependencies": {
-        "mongoose": "== 2.6.4",
+        "mongoose": "== 3.0.2",
         "funkit": "== 0.1.9"
     },
 
