@@ -7,7 +7,8 @@ var refs = sugar.refs;
 var unique = sugar.unique;
 
 exports.Author = schema('Author', {
-    name: {type: String, required: true}
+    name: {type: String, required: true},
+    nick: String
 });
 
 exports.License = schema('License', {
