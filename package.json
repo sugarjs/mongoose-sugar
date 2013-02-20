@@ -2,7 +2,7 @@
     "name": "mongoose-sugar",
     "description": "Sugary bits for Mongoose",
     "author": "Juho Vepsalainen <bebraw@gmail.com>",
-    "version": "0.2.2",
+    "version": "0.2.3",
 
     "dependencies": {
         "mongoose": "== 3.5.6",
