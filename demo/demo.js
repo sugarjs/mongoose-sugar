@@ -12,25 +12,29 @@ main();
 
 function main() {
     mongoose.connect(address);
-    sugar.getAll(models.License, {}, function(err, d) {
+
+    sugar.removeAll(models.License, logger(function() {
+        sugar.getAll(models.License, {}, logger(function() {
+            // TODO: should terminate (process.exit) once these are done
+            sugar.create(models.License, {name: 'mit'}, logger());
+            sugar.create(models.License, {name: 'mylicense'}, logger());
+        }));
+    }));
+}
+
+function logger(fn) {
+    fn = fn || noop;
+
+    return function(err, d) {
         if(err) return log(err);
         log(d);
 
-        sugar.create(models.License, {name: 'mit'}, function(err, d) {
-            if(err) return log(err);
-            log(d);
-            process.exit();
-        });
-
-        sugar.create(models.License, {name: 'mylicense'}, function(err, d) {
-        if(err) return log(err);
-            log(d);
-            process.exit();
-        });
-    });
+        fn();
+    };
 }
 
 function log(d) {
     console.log(d);
 }
 
+function noop() {}
