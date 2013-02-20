@@ -13,7 +13,7 @@ main();
 function main() {
     mongoose.connect(address);
 
-    sugar.getMeta(models.License);
+    console.log(sugar.getMeta(models.License));
 
     sugar.removeAll(models.License, logger(function() {
         sugar.getAll(models.License, {}, logger(function() {
