@@ -15,7 +15,7 @@ exports.License = schema('License', {
 });
 
 exports.Library = schema('Library', {
-    author: ref('Author'),
+    author: ref('Author', {required: true}),
     name: {type: String, required: true},
     licenses: refs('License')
 });

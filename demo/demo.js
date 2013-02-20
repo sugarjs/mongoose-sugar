@@ -13,14 +13,23 @@ main();
 function main() {
     mongoose.connect(address);
 
-    console.log(sugar.getMeta(models.License));
-
-    sugar.removeAll(models.License, logger(function() {
-        sugar.getAll(models.License, {}, logger(function() {
-            // TODO: should terminate (process.exit) once these are done
-            sugar.create(models.License, {name: 'mit'}, logger());
-            sugar.create(models.License, {name: 'mylicense'}, logger());
+    console.log(sugar.getMeta(models.Author));
+    sugar.removeAll(models.Author, logger(function() {
+        sugar.create(models.Author, {name: 'Joe'}, logger(function(author) {
+            sugar.removeAll(models.Library, logger(function() {
+                sugar.create(models.Library, {
+                    author: author._id,
+                    name: 'demo library'
+                }, logger());
+            }));
         }));
+    }));
+
+    console.log(sugar.getMeta(models.License));
+    sugar.removeAll(models.License, logger(function() {
+        // TODO: should terminate (process.exit) once these are done
+        sugar.create(models.License, {name: 'mit'}, logger());
+        sugar.create(models.License, {name: 'mylicense'}, logger());
     }));
 }
 
@@ -31,7 +40,7 @@ function logger(fn) {
         if(err) return log(err);
         log(d);
 
-        fn();
+        fn(d);
     };
 }
 
