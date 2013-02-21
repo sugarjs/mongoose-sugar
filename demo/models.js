@@ -8,7 +8,8 @@ var unique = sugar.unique;
 
 exports.Author = schema('Author', {
     name: {type: String, required: true},
-    nick: String
+    nick: String,
+    extra: mongoose.Schema.Types.Mixed
 });
 
 exports.License = schema('License', {

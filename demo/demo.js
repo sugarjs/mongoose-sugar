@@ -15,12 +15,17 @@ function main() {
 
     console.log(sugar.getMeta(models.Author));
     sugar.removeAll(models.Author, logger(function() {
-        sugar.create(models.Author, {name: 'Joe'}, logger(function(author) {
-            sugar.removeAll(models.Library, logger(function() {
-                sugar.create(models.Library, {
-                    author: author._id,
-                    name: 'demo library'
-                }, logger());
+        sugar.create(models.Author, {
+                name: 'Joe',
+                extra: ['foobar', 'barbar']
+            }, logger(function(author) {
+            sugar.update(models.Author, author._id, {extra: ['stuff']}, logger(function() {
+                sugar.removeAll(models.Library, logger(function() {
+                    sugar.create(models.Library, {
+                        author: author._id,
+                        name: 'demo library'
+                    }, logger());
+                }));
             }));
         }));
     }));
