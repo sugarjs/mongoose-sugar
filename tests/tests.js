@@ -1,9 +1,8 @@
 #!/usr/bin/env node
-var mongoose = require('mongoose');
 var spec = require('sugar-spec');
+var mongoose = require('mongoose');
 
 var sugar = require('../lib/mongoose-sugar');
-var models = require('./models');
 
 
 main();
@@ -13,6 +12,6 @@ function main() {
 
     mongoose.connect(address, function(err) {
         if(err) log('Make sure mongod is running!');
-        else spec(sugar, models);
+        else spec(sugar, mongoose);
     });
 }
