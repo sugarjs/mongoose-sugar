@@ -14,9 +14,6 @@ var log = console.log.bind(console);
 
 main();
 
-// TODO: test getAll
-// TODO: test getAll with filtering
-
 function main() {
     var address = 'mongodb://localhost/mongoose-sugar-test';
 
@@ -33,6 +30,7 @@ function main() {
         getAuthor,
         getAuthorName,
         getAllAuthors,
+        getAllAuthorNames,
         getMeta
     ], function(t) {
         return function(cb) {
@@ -104,6 +102,32 @@ function getAllAuthors(cb) {
             // TODO: check just if the returned data contains (no need for order)
             assert.equal(d[0].name, firstData.name);
             assert.equal(d[1].name, secondData.name);
+
+            cb(err, d);
+        });
+    }
+}
+
+// TODO: join with above somehow
+function getAllAuthorNames(cb) {
+    var firstData = {name: 'Jack', extra: ['foo', 'bar']};
+    var secondData = {name: 'Joe', extra: ['boo', 'moo']};
+
+    async.series([
+        createAuthor(firstData),
+        createAuthor(secondData),
+        getAll
+    ], cb);
+
+    function getAll(cb) {
+        sugar.getAll(models.Author, {fields: ['name']}, function(err, d) {
+            assert.equal(d.length, 2);
+
+            // TODO: no need for these to be in order
+            assert.equal(d[0].name, firstData.name);
+            assert.equal(d[0].extra, undefined);
+            assert.equal(d[1].name, secondData.name);
+            assert.equal(d[1].extra, undefined);
 
             cb(err, d);
         });
