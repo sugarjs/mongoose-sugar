@@ -28,6 +28,10 @@
         "url": "https://github.com/bebraw/mongoose-sugar/issues"
     },
 
+    "scripts": {
+        "test": "node ./tests.js"
+    },
+
     "keywords": ["mongoose", "utilities"],
 
     "licenses": [{

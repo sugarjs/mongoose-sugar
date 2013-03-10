@@ -2,7 +2,7 @@
 var spec = require('sugar-spec');
 var mongoose = require('mongoose');
 
-var sugar = require('../lib/mongoose-sugar');
+var sugar = require('./lib/mongoose-sugar');
 
 
 main();
