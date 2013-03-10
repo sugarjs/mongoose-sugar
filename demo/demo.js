@@ -13,7 +13,8 @@ main();
 function main() {
     mongoose.connect(address);
 
-    console.log(sugar.getMeta(models.Author));
+    sugar.getMeta(models.Author, logger());
+
     sugar.removeAll(models.Author, logger(function() {
         sugar.create(models.Author, {
                 name: 'Joe',
@@ -30,7 +31,8 @@ function main() {
         }));
     }));
 
-    console.log(sugar.getMeta(models.License));
+    sugar.getMeta(models.License, logger());
+
     sugar.removeAll(models.License, logger(function() {
         // TODO: should terminate (process.exit) once these are done
         sugar.create(models.License, {name: 'mit'}, logger());
