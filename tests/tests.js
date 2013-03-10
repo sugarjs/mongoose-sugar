@@ -27,6 +27,7 @@ function main() {
         createAuthor(),
         updateAuthor,
         removeAuthor,
+        removeAuthorByName,
         getOrCreateAuthor,
         getAuthor,
         getAuthorName,
@@ -216,8 +217,25 @@ function updateAuthor(cb) {
 
 function removeAuthor(cb) {
     createAuthor()(function(err, d) {
-        sugar.remove(models.Author, d._id, function(err, d) {
+        // XXX: toString
+        sugar.remove(models.Author, d._id.toString(), function(err, d) {
             assert.ok(d.deleted);
+
+            sugar.count(models.Author, function(err, d) {
+                assert.equal(d, 0);
+
+                cb(err, d);
+            });
+        });
+    });
+}
+
+function removeAuthorByName(cb) {
+    var name = 'Joe';
+
+    createAuthor({name: name})(function(err, d) {
+        sugar.remove(models.Author, {name: name}, function(err, d) {
+            assert.ok(d[0].deleted);
 
             sugar.count(models.Author, function(err, d) {
                 assert.equal(d, 0);
