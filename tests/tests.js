@@ -14,6 +14,9 @@ var log = console.log.bind(console);
 
 main();
 
+// TODO: test getAll
+// TODO: test getAll with filtering
+
 function main() {
     var address = 'mongodb://localhost/mongoose-sugar-test';
 
@@ -96,6 +99,20 @@ function updateAuthor(cb) {
     });
 }
 
+function removeAuthor(cb) {
+    createAuthor(function(err, d) {
+        sugar.remove(models.Author, d._id, function(err, d) {
+            assert.ok(d.deleted);
+
+            sugar.count(models.Author, function(err, d) {
+                assert.equal(d, 0);
+
+                cb(err, d);
+            });
+        });
+    });
+}
+
 function createAuthor(cb) {
     var name= 'Joe';
     var extra = ['foobar', 'barbar'];
@@ -109,20 +126,6 @@ function createAuthor(cb) {
         assert.ok(equals(d.extra, extra));
 
         cb(err, d);
-    });
-}
-
-function removeAuthor(cb) {
-    createAuthor(function(err, d) {
-        sugar.remove(models.Author, d._id, function(err, d) {
-            assert.ok(d.deleted);
-
-            sugar.count(models.Author, function(err, d) {
-                assert.equal(d, 0);
-
-                cb(err, d);
-            });
-        });
     });
 }
 
