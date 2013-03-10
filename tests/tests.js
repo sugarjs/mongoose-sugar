@@ -30,6 +30,7 @@ function main() {
         getAuthor,
         getAuthorName,
         getAllAuthors,
+        getAllAuthorsLimit,
         getAllAuthorNames,
         getMeta
     ], function(t) {
@@ -128,6 +129,30 @@ function getAllAuthorNames(cb) {
             assert.equal(d[0].extra, undefined);
             assert.equal(d[1].name, secondData.name);
             assert.equal(d[1].extra, undefined);
+
+            cb(err, d);
+        });
+    }
+}
+
+// TODO: join with above somehow
+function getAllAuthorsLimit(cb) {
+    var firstData = {name: 'Jack', extra: ['foo', 'bar']};
+    var secondData = {name: 'Joe', extra: ['boo', 'moo']};
+
+    async.series([
+        createAuthor(firstData),
+        createAuthor(secondData),
+        getAll
+    ], cb);
+
+    function getAll(cb) {
+        sugar.getAll(models.Author, {fields: ['name'], limit: 1}, function(err, d) {
+            assert.equal(d.length, 1);
+
+            // TODO: no need for these to be in order
+            assert.equal(d[0].name, firstData.name);
+            assert.equal(d[0].extra, undefined);
 
             cb(err, d);
         });
