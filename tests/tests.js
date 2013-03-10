@@ -27,6 +27,7 @@ function main() {
         createAuthor(),
         updateAuthor,
         removeAuthor,
+        getOrCreateAuthor,
         getAuthor,
         getAuthorName,
         getAllAuthors,
@@ -67,7 +68,22 @@ function getAuthorName(cb) {
     createAuthor()(function(err, author) {
         sugar.get(models.Author, author._id, ['name'], function(err, d) {
             assert.equal(d.name, author.name);
-            assert.equal(d._id, author._id.toString()); // XXX. toString needed
+            assert.equal(d._id, author._id.toString()); // XXX: toString needed
+
+            cb(err, d);
+        });
+    });
+}
+
+function getOrCreateAuthor(cb) {
+    var name = 'Joe';
+
+    sugar.getOrCreate(models.Author, {name: name}, function(err, author) {
+        assert.equal(author.name, name);
+
+        sugar.getOrCreate(models.Author, {name: name}, function(err, d) {
+            assert.equal(author._id, d._id.toString()); // XXX: toString needed
+            assert.equal(d.name, name);
 
             cb(err, d);
         });
