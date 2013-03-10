@@ -31,6 +31,7 @@ function main() {
         getAuthorName,
         getAllAuthors,
         getAllAuthorsLimit,
+        getAllAuthorsOffset,
         getAllAuthorNames,
         getMeta
     ], function(t) {
@@ -147,12 +148,36 @@ function getAllAuthorsLimit(cb) {
     ], cb);
 
     function getAll(cb) {
-        sugar.getAll(models.Author, {fields: ['name'], limit: 1}, function(err, d) {
+        sugar.getAll(models.Author, {limit: 1}, function(err, d) {
             assert.equal(d.length, 1);
 
             // TODO: no need for these to be in order
             assert.equal(d[0].name, firstData.name);
-            assert.equal(d[0].extra, undefined);
+            assert.ok(equals(d[0].extra, firstData.extra));
+
+            cb(err, d);
+        });
+    }
+}
+
+// TODO: join with above somehow
+function getAllAuthorsOffset(cb) {
+    var firstData = {name: 'Jack', extra: ['foo', 'bar']};
+    var secondData = {name: 'Joe', extra: ['boo', 'moo']};
+
+    async.series([
+        createAuthor(firstData),
+        createAuthor(secondData),
+        getAll
+    ], cb);
+
+    function getAll(cb) {
+        sugar.getAll(models.Author, {limit: 1, offset: 1}, function(err, d) {
+            assert.equal(d.length, 1);
+
+            // TODO: no need for these to be in order
+            assert.equal(d[0].name, secondData.name);
+            assert.ok(equals(d[0].extra, secondData.extra));
 
             cb(err, d);
         });
