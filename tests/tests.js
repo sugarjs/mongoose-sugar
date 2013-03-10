@@ -42,7 +42,7 @@ function main() {
             async.series([
                 removeAuthors,
                 removeLibraries,
-                removeLibraryAuthors,
+                removeLibraryAuthors
             ], t.bind(undefined, cb));
         };
     }), function() {
