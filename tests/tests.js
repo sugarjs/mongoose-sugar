@@ -28,6 +28,7 @@ function main() {
         updateAuthor,
         removeAuthor,
         removeAuthorByName,
+        removeCascade,
         getOrCreateAuthor,
         getAuthor,
         getAuthorName,
@@ -40,7 +41,8 @@ function main() {
         return function(cb) {
             async.series([
                 removeAuthors,
-                removeLibraries
+                removeLibraries,
+                removeLibraryAuthors,
             ], t.bind(undefined, cb));
         };
     }), function() {
@@ -63,6 +65,10 @@ function removeAuthors(cb) {
 
 function removeLibraries(cb) {
     removeAll(models.Library, cb);
+}
+
+function removeLibraryAuthors(cb) {
+    removeAll(models.LibraryAuthor, cb);
 }
 
 function getAuthorName(cb) {
@@ -244,6 +250,40 @@ function removeAuthorByName(cb) {
             });
         });
     });
+}
+
+function removeCascade(cb) {
+    createAuthor()(function(err, author) {
+        createLibrary({
+            name: 'demo',
+            author: author
+        })(function(err, library) {
+            createLibraryAuthor({
+                library: library,
+                author: author
+            })(function(err, d) {
+                sugar.remove(models.Library, library._id, function(err, d) {
+                    sugar.count(models.LibraryAuthor, function(err, d) {
+                        assert.equal(d, 0);
+
+                        cb();
+                    });
+                });
+            });
+        });
+    });
+}
+
+function createLibraryAuthor(data) {
+    return function(cb) {
+        sugar.create(models.LibraryAuthor, data, cb);
+    };
+}
+
+function createLibrary(data) {
+    return function(cb) {
+        sugar.create(models.Library, data, cb);
+    };
 }
 
 // XXX: using factory here since bind does not seem to work with async

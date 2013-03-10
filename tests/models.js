@@ -25,8 +25,9 @@ exports.Library = schema('Library', {
 // this a bit contrived example illustrates how to use
 // schemas as sort of templates. this schema is needed
 // for testing delete cascade as well
+// TODO: figure out how to eliminate that parent reference
 exports.LibraryAuthor = schema('LicenseAuthor', {
-    library: ref('Library', {required: true}),
-    author: ref('Author', {required: true}),
+    library: ref('Library', {required: true}, 'LicenseAuthor'),
+    author: ref('Author', {required: true}, 'LicenseAuthor'),
     role: String
 });
