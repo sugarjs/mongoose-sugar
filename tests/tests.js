@@ -27,6 +27,7 @@ function main() {
         createAuthor,
         updateAuthor,
         removeAuthor,
+        getAuthor,
         getMeta
     ], function(t) {
         return function(cb) {
@@ -57,19 +58,15 @@ function removeLibraries(cb) {
     removeAll(models.Library, cb);
 }
 
-function createAuthor(cb) {
-    var name= 'Joe';
-    var extra = ['foobar', 'barbar'];
-    var data = {
-        name: name,
-        extra: extra
-    };
+function getAuthor(cb) {
+    createAuthor(function(err, author) {
+        sugar.get(models.Author, author._id, function(err, d) {
+            // XXX: figure out why d._id.toString() is needed (different encoding?)
+            //assert.ok(equals(author, d));
+            assert.equal(author._id, d._id.toString());
 
-    sugar.create(models.Author, data, function(err, d) {
-        assert.equal(d.name, name);
-        assert.ok(equals(d.extra, extra));
-
-        cb(err, d);
+            cb(err, d);
+        });
     });
 }
 
@@ -84,6 +81,22 @@ function updateAuthor(cb) {
 
             cb(err, d);
         });
+    });
+}
+
+function createAuthor(cb) {
+    var name= 'Joe';
+    var extra = ['foobar', 'barbar'];
+    var data = {
+        name: name,
+        extra: extra
+    };
+
+    sugar.create(models.Author, data, function(err, d) {
+        assert.equal(d.name, name);
+        assert.ok(equals(d.extra, extra));
+
+        cb(err, d);
     });
 }
 
