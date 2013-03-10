@@ -27,7 +27,7 @@ function main() {
     log('Executing tests!');
 
     async.series(setup([
-        createAuthor,
+        createAuthor(),
         updateAuthor,
         removeAuthor,
         getAuthor,
@@ -63,7 +63,7 @@ function removeLibraries(cb) {
 }
 
 function getAuthorName(cb) {
-    createAuthor(function(err, author) {
+    createAuthor()(function(err, author) {
         sugar.get(models.Author, author._id, ['name'], function(err, d) {
             assert.equal(d.name, author.name);
             assert.equal(d._id, author._id.toString()); // XXX. toString needed
@@ -74,7 +74,7 @@ function getAuthorName(cb) {
 }
 
 function getAuthor(cb) {
-    createAuthor(function(err, author) {
+    createAuthor()(function(err, author) {
         sugar.get(models.Author, author._id, function(err, d) {
             // XXX: figure out why d._id.toString() is needed (different encoding?)
             //assert.ok(equals(author, d));
@@ -86,7 +86,7 @@ function getAuthor(cb) {
 }
 
 function updateAuthor(cb) {
-    createAuthor(function(err, d) {
+    createAuthor()(function(err, d) {
         var name = d.name + d.name;
 
         d.name = name;
@@ -100,7 +100,7 @@ function updateAuthor(cb) {
 }
 
 function removeAuthor(cb) {
-    createAuthor(function(err, d) {
+    createAuthor()(function(err, d) {
         sugar.remove(models.Author, d._id, function(err, d) {
             assert.ok(d.deleted);
 
@@ -113,20 +113,30 @@ function removeAuthor(cb) {
     });
 }
 
-function createAuthor(cb) {
-    var name= 'Joe';
-    var extra = ['foobar', 'barbar'];
-    var data = {
-        name: name,
-        extra: extra
+// XXX: using factory here since bind does not seem to work with async
+function createAuthor(data) {
+    var name, extra; // TODO: tidy up
+    if(data) {
+        name = data.name;
+        extra = data.extra;
+    }
+    else {
+        name = 'Joe';
+        extra = ['foobar', 'barbar'];
+        data = {
+            name: name,
+            extra: extra
+        };
+    }
+
+    return function(cb) {
+        sugar.create(models.Author, data, function(err, d) {
+            assert.equal(d.name, name);
+            assert.ok(equals(d.extra, extra));
+
+            cb(err, d);
+        });
     };
-
-    sugar.create(models.Author, data, function(err, d) {
-        assert.equal(d.name, name);
-        assert.ok(equals(d.extra, extra));
-
-        cb(err, d);
-    });
 }
 
 function removeAll(model, cb) {
