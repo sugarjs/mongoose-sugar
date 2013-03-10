@@ -11,6 +11,10 @@
         "async": "== 0.2.6"
     },
 
+    "devDependencies": {
+        "sugar-spec": "== 0.1.0"
+    },
+
     "main": "./lib/mongoose-sugar.js",
 
     "repository": {

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 var mongoose = require('mongoose');
+var spec = require('sugar-spec');
 
 var sugar = require('../lib/mongoose-sugar');
 var models = require('./models');
-var spec = require('./spec');
 
 
 main();
