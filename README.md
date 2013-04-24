@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/bebraw/mongoose-sugar.png)](http://travis-ci.org/bebraw/mongoose-sugar)
 # mongoose-sugar - Sugary bits for Mongoose
 
 mongoose-sugar adds some sugar on top of Mongoose and makes it a bit more
