@@ -11,7 +11,7 @@ function main() {
     var address = 'mongodb://localhost/mongoose-sugar-test';
 
     mongoose.connect(address, function(err) {
-        if(err) log('Make sure mongod is running!');
+        if(err) return console.error('Make sure mongod is running!');
         else spec(sugar, mongoose);
     });
 }
