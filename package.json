@@ -15,7 +15,7 @@
     },
 
     "devDependencies": {
-        "sugar-spec": "0.2.1",
+        "sugar-spec": "0.3.0",
         "mongoose": "3.6.13"
     },
 
