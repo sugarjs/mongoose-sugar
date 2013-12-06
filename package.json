@@ -4,16 +4,16 @@
   "author": "Juho Vepsalainen <bebraw@gmail.com>",
   "version": "0.5.0",
   "dependencies": {
-    "funkit": "0.7.4",
+    "funkit": "0.7.7",
     "is-js": "0.1.1",
-    "async": "0.2.6"
+    "async": "0.2.9"
   },
   "peerDependencies": {
-    "mongoose": "3.6.x"
+    "mongoose": "3.8.x"
   },
   "devDependencies": {
-    "sugar-spec": "0.3.0",
-    "mongoose": "3.6.13"
+    "sugar-spec": "0.4.0",
+    "mongoose": "3.8.1"
   },
   "main": "./lib/mongoose-sugar.js",
   "repository": {

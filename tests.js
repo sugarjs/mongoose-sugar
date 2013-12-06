@@ -8,7 +8,9 @@ var sugar = require('./lib/mongoose-sugar');
 main();
 
 function main() {
-    var address = 'mongodb://localhost/mongoose-sugar-test';
-
-    spec(sugar, address, mongoose);
+    spec({
+        sugar: sugar,
+        address: 'mongodb://localhost/mongoose-sugar-test',
+        engine: mongoose
+    });
 }
