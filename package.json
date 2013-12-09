@@ -15,7 +15,7 @@
     "sugar-spec": "0.5.4",
     "mongoose": "3.8.1"
   },
-  "main": "./lib/mongoose-sugar.js",
+  "main": "./lib",
   "repository": {
     "type": "git",
     "url": "https://bebraw@github.com/bebraw/mongoose-sugar"
