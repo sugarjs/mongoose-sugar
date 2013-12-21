@@ -4,11 +4,11 @@
   "author": "Juho Vepsalainen <bebraw@gmail.com>",
   "version": "0.7.1",
   "dependencies": {
-    "funkit": "0.7.7",
     "async": "0.2.9",
     "change-case": "~1.0.4",
     "require-dir": "~0.1.0",
-    "annois": "~0.3.0"
+    "annois": "~0.3.0",
+    "annofp": "~0.2.1"
   },
   "peerDependencies": {
     "mongoose": "3.8.x"
