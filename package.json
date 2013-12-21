@@ -6,7 +6,9 @@
   "dependencies": {
     "funkit": "0.7.7",
     "is-js": "0.1.1",
-    "async": "0.2.9"
+    "async": "0.2.9",
+    "change-case": "~1.0.4",
+    "require-dir": "~0.1.0"
   },
   "peerDependencies": {
     "mongoose": "3.8.x"
