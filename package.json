@@ -5,17 +5,17 @@
   "version": "0.8.0",
   "dependencies": {
     "async": "0.2.9",
-    "change-case": "~1.0.4",
-    "require-dir": "~0.1.0",
-    "annois": "~0.3.0",
-    "annofp": "~0.2.1"
+    "change-case": "1.0.4",
+    "require-dir": "0.1.0",
+    "annois": "0.3.0",
+    "annofp": "0.2.1"
   },
   "peerDependencies": {
     "mongoose": "3.8.x"
   },
   "devDependencies": {
-    "sugar-spec": "0.5.4",
-    "mongoose": "3.8.1"
+    "sugar-spec": "0.8.6",
+    "mongoose": "3.8.3"
   },
   "main": "./lib",
   "repository": {
